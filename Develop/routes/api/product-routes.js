@@ -25,8 +25,13 @@ router.get('/:id', (req, res) => {
   // be sure to include its associated Category and Tag data
   Product.findByPk(req.params.id, {
     include: [
-      { model: Tag},
-      { model: Category,}
+      {
+         model: Tag,
+        through: 'ProductTag'
+      },
+      {
+        model: Category,
+      }
   ],
   }).then((productData) => {
     res.json(productData);
